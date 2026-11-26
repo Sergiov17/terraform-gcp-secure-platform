@@ -4,7 +4,7 @@ A portfolio lab for a custom Google Cloud VPC and private regional subnet manage
 
 ## What this demonstrates
 
-- Terraform provider and version constraints
+- A reusable Terraform network module with typed inputs and outputs
 - Custom-mode VPC networking rather than implicit auto subnets
 - Private Google Access for private workloads
 - Optional subnet flow logs with an explicit cost decision
@@ -18,6 +18,14 @@ flowchart LR
   SUBNET --> PGA["Private Google Access"]
   SUBNET -. optional .-> LOGS["VPC Flow Logs"]
 ```
+
+## Repository layout
+
+- `versions.tf`, `providers.tf`: Terraform and Google provider constraints
+- `variables.tf`: project, region, naming, CIDR, and flow-log inputs
+- `modules/network`: reusable custom VPC and regional subnet
+- `network.tf`, `outputs.tf`: root module composition and public outputs
+- `.github/workflows/terraform.yml`: format and validate on pull requests
 
 ## Prerequisites
 
@@ -44,7 +52,7 @@ The repository never runs `terraform apply`. Planning against a real project req
 - Custom VPCs have no automatically created subnets or permissive ingress rules.
 - Flow logs are disabled by default; enabling them may incur Cloud Logging charges.
 - Production state belongs in an encrypted, access-controlled remote backend, never in Git.
-- Never commit `terraform.tfvars`, state, credentials, or private keys.
+- Never commit `terraform.tfvars`, state, credentials, or private keys. `.terraform.lock.hcl` is intentionally not ignored and should be committed after initialization.
 
 ## Next steps
 
