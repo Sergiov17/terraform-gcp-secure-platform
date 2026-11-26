@@ -1,0 +1,6 @@
+project_id      = "replace-with-your-project-id"
+project_name    = "secure-platform"
+environment     = "dev"
+region          = "us-central1"
+network_cidr    = "10.60.1.0/24"
+enable_flow_logs = false
